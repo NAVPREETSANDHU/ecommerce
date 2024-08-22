@@ -2,8 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
+import connectDB from './config/db.js';
 import products from './data/products.js';
+import connectDB from './config/db.js';
 const port = process.env.PORT || 8000;
+connectDB();
 
 const app = express();
 app.use(cors());
@@ -22,3 +25,6 @@ app.get('/api/products/:id', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server is running on Port ${port}`))
+app.listen(port, () =>
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`)
+  );
