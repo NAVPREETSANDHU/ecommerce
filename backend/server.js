@@ -17,6 +17,3 @@ app.get('/', (req, res) =>{
 app.use('/api/products', productRoutes);
 
 app.listen(port, () => console.log(`Server is running on Port ${port}`))
-app.listen(port, () =>
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`)
-  );
