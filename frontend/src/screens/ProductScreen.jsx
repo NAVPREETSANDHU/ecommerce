@@ -1,37 +1,33 @@
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-} from 'react-bootstrap';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import { useGetProductDetailsQuery } from '../slices/productSlice';
 import Rating from '../components/Rating';
-
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const ProductScreen = () => {
-    const [product, setProduct] = useState({});
-    const [qty, setQty] = useState(1);
-    const { id: productId} = useParams();
+  const { id: productId } = useParams();
 
-    useEffect(() => {
-      const fetchProduct = async () => {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${productId}`);
-        setProduct(data); 
-      };
-  
-      fetchProduct();
-    }, [])
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useGetProductDetailsQuery(productId);
 
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
         Go Back
       </Link>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
+      ) : (
+        <>
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
@@ -72,31 +68,6 @@ const ProductScreen = () => {
                       </Col>
                     </Row>
                   </ListGroup.Item>
-
-                  {/* Qty Select */}
-                  {product.countInStock > 0 && (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Qty</Col>
-                        <Col>
-                          <Form.Control
-                            as='select'
-                            value={qty}
-                            onChange={(e) => setQty(Number(e.target.value))}
-                          >
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )}
-
                   <ListGroup.Item>
                     <Button
                       className='btn-block'
@@ -111,7 +82,9 @@ const ProductScreen = () => {
             </Col>
           </Row>
         </>
-  )
+      )}
+    </>
+  );
 };
 
 export default ProductScreen;
