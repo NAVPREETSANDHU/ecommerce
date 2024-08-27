@@ -8,6 +8,7 @@ import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { addToCart } from '../slices/cartSlice';
+import {Form } from "react"
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
