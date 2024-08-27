@@ -17,6 +17,8 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import store from './store';
 import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
