@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
-import { useGetProductDetailsQuery } from '../slices/productSlice';
-import Rating from '../components/Rating';
+import { Button, Card, Col, Image, ListGroup, Row, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Rating from '../components/Rating';
 import { addToCart } from '../slices/cartSlice';
+import { useGetProductDetailsQuery } from '../slices/productSlice';
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
