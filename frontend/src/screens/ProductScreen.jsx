@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Row,Form, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import { useGetProductDetailsQuery } from '../slices/productSlice';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { addToCart } from '../slices/cartSlice';
-import {Form } from "react"
+
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
@@ -125,4 +125,4 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+export default ProductScreen;
