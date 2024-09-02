@@ -9,6 +9,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { addToCart } from '../slices/cartSlice';
 
+
 const ProductScreen = () => {
   const { id: productId } = useParams();
 
@@ -124,4 +125,4 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+export default ProductScreen;
