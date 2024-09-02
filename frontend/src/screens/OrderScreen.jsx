@@ -87,9 +87,13 @@ const OrderScreen = () => {
       .create({
         purchase_units: [
           {
+            currency_code: "AUD",
             amount: { value: order.totalPrice },
           },
         ],
+        application_context: {
+          shipping_preference: "NO_SHIPPING" // Set this to "NO_SHIPPING" to hide the shipping address fields
+        }
       })
       .then((orderID) => {
         return orderID;
