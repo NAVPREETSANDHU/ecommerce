@@ -1,9 +1,10 @@
-import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
+import { Badge, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
-import { useLogoutMutation } from '../slices/usersApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 import { logout } from '../slices/authSlice';
+import { useLogoutMutation } from '../slices/usersApiSlice';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -31,6 +32,7 @@ const Header = () => {
       <Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <Navbar.Brand as={Link} to='/'>
+            <img src={logo} alt='Bazaarlia' width={"48px"} height={"48px"} />
             Bazaarlia
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
