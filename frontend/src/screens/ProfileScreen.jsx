@@ -55,7 +55,7 @@ const ProfileScreen = () => {
       </Col>
       <Col md={9}>
         <h2>My Orders</h2>
-         (
+         
           <Table striped hover responsive className='table-sm'>
             <thead>
               <tr>
@@ -71,7 +71,7 @@ const ProfileScreen = () => {
               
             </tbody>
           </Table>
-        )
+        
       </Col>
     </Row>
   );
