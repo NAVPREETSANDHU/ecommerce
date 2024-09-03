@@ -8,6 +8,7 @@ import Rating from '../components/Rating';
 import { addToCart } from '../slices/cartSlice';
 import { useGetProductDetailsQuery } from '../slices/productSlice';
 
+
 const ProductScreen = () => {
   const { id: productId } = useParams();
 
@@ -123,4 +124,4 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+export default ProductScreen;
