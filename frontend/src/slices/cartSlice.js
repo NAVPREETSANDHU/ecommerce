@@ -10,10 +10,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      // NOTE: we don't need user, rating, numReviews or reviews
-      // in the cart
       const { user, rating, numReviews, reviews, ...item } = action.payload;
-
       const existItem = state.cartItems.find((x) => x._id === item._id);
 
       if (existItem) {

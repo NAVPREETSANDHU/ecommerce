@@ -33,7 +33,7 @@ const Header = () => {
     <header>
       <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to='/'>
             Bazaarlia
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
