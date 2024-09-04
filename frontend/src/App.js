@@ -30,6 +30,7 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Outlet />
+          <ToastContainer />
         </Container>
       </main>
       <Footer />

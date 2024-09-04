@@ -1,10 +1,10 @@
-import { Badge, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png';
-import { logout } from '../slices/authSlice';
-import { useLogoutMutation } from '../slices/usersApiSlice';
+import { Navbar, Nav, Container, NavDropdown, Badge } from "react-bootstrap";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
+import { clearCartItems } from "../slices/cartSlice";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -18,10 +18,12 @@ const Header = () => {
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
+      //logout action dispatch
       dispatch(logout());
-      // NOTE: here we need to reset cart state for when a user logs out so the next
+      //reset cart state for when a user logs out so the next
+      dispatch(clearCartItems());
       // user doesn't inherit the previous users cart and shipping
-      navigate('/login');
+      navigate("/login");
     } catch (err) {
       console.error(err);
     }
@@ -29,27 +31,26 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <Navbar.Brand as={Link} to='/'>
-            <img src={logo} alt='Bazaarlia' width={"48px"} height={"48px"} />
             Bazaarlia
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ms-auto'>
-              <Nav.Link as={Link} to='/cart'>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
+              <Nav.Link as={Link} to="/cart">
                 <FaShoppingCart /> Cart
                 {cartItems.length > 0 && (
-                  <Badge pill bg='success' style={{ marginLeft: '5px' }}>
+                  <Badge pill bg="success" style={{ marginLeft: "5px" }}>
                     {cartItems.reduce((a, c) => a + c.qty, 0)}
                   </Badge>
                 )}
               </Nav.Link>
               {userInfo ? (
                 <>
-                  <NavDropdown title={userInfo.name} id='username'>
-                    <NavDropdown.Item as={Link} to='/profile'>
+                  <NavDropdown title={userInfo.name} id="username">
+                    <NavDropdown.Item as={Link} to="/profile">
                       Profile
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>
@@ -58,21 +59,21 @@ const Header = () => {
                   </NavDropdown>
                 </>
               ) : (
-                <Nav.Link as={Link} to='/login'>
+                <Nav.Link as={Link} to="/login">
                   <FaUser /> Sign In
                 </Nav.Link>
               )}
 
               {/* Admin Links */}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
-                  <NavDropdown.Item as={Link} to='/admin/productlist'>
+                <NavDropdown title="Admin" id="adminmenu">
+                  <NavDropdown.Item as={Link} to="/admin/productlist">
                     Products
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='/admin/orderlist'>
+                  <NavDropdown.Item as={Link} to="/admin/orderlist">
                     Orders
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='/admin/userlist'>
+                  <NavDropdown.Item as={Link} to="/admin/userlist">
                     Users
                   </NavDropdown.Item>
                 </NavDropdown>
