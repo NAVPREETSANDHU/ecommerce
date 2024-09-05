@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import registerEmail from "../data/registerEmail.js";
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -11,14 +10,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = () => {
+const sendEmail = (email, subject, html) => {
   // Define email options
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: "anidiot78@gmail.com",
-    subject: "Bazaarlia",
-    text: "Hello world?",
-    html: registerEmail(),
+    to: email,
+    subject: subject,
+    text: "Bazaarlia",
+    html: html,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
