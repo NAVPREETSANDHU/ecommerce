@@ -1,5 +1,3 @@
-import bcrypt from "bcryptjs";
-
 const dispatchOrderEmail = () => {
   return `
   <html>

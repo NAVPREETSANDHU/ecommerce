@@ -2,6 +2,7 @@ import asyncHandler from '../middleware/asyncHandler.js';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
 import sendEmail from "../config/mail.js";
+import registerEmail from "../data/registerEmail.js";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -13,7 +14,6 @@ const authUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
-    sendEmail();
     res.json({
       _id: user._id,
       name: user.name,
@@ -47,6 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     generateToken(res, user._id);
+    sendEmail(user.email, "Registered with Bazaarlia!",registerEmail());
 
     res.status(201).json({
       _id: user._id,

@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useSelector } from "react-redux";
+import moment from 'moment';
 import { toast } from "react-toastify";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -132,7 +133,7 @@ const OrderScreen = () => {
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered on {order.deliveredAt}
+                  Delivered on {moment(order.deliveredAt).format('YYYY/MM/DD HH:mm')}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>
@@ -146,7 +147,7 @@ const OrderScreen = () => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">Paid on {moment(order.paidAt).format('YYYY/MM/DD HH:mm')}</Message>
               ) : (
                 <Message variant="danger">Not Paid</Message>
               )}

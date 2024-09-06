@@ -1,5 +1,3 @@
-import bcrypt from "bcryptjs";
-
 const registerEmail = () => {
   return `
   <html>
@@ -15,7 +13,7 @@ const registerEmail = () => {
   <body>
     <div class="container">
       <div class="header">
-        <h1>Welcome to Our Service!</h1>
+        <h1>Welcome to Bazaarlia!</h1>
       </div>
       <div class="content">
         <p>Dear Customer,</p>
