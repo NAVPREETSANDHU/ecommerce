@@ -22,11 +22,11 @@ const Footer = () => {
                 {" "}
                 Home{" "}
               </NavLink>
-              <NavLink href="#" className="text-white">
+              <NavLink href="/about" className="text-white">
                 About{" "}
               </NavLink>
-              <NavLink href="#" className="text-white">
-                Contact
+              <NavLink href="/cart" className="text-white">
+                Cart
               </NavLink>
             </Nav>
           </Col>
