@@ -18,6 +18,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
+import About from "./screens/About";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ShippingScreen from "./screens/ShippingScreen";
@@ -32,6 +33,9 @@ import ProductEditScreen from "./screens/admin/ProductEditScreen";
 import ProductListScreen from "./screens/admin/ProductListScreen";
 import UserEditScreen from "./screens/admin/UserEditScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
+import NotFoundPage from "./screens/NotFoundPage";
+
+
 import store from "./store";
 
 const router = createBrowserRouter(
@@ -40,6 +44,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/search/:keyword" element={<HomeScreen />} />
       <Route path="/page/:pageNumber" element={<HomeScreen />} />
+      <Route path="/about" element={<About />} />
       <Route
         path="/search/:keyword/page/:pageNumber"
         element={<HomeScreen />}
@@ -48,6 +53,7 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+      <Route path="*" element={<NotFoundPage />} />
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/shipping" element={<ShippingScreen />} />

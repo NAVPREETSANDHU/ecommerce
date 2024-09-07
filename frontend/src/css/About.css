@@ -1,0 +1,22 @@
+.about-us-container {
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  .card-img-top {
+    height: 150px; /* Fixed height for team member images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+    color: #6c757d;
+  }
+  
