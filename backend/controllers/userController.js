@@ -1,8 +1,10 @@
-import asyncHandler from '../middleware/asyncHandler.js';
-import generateToken from '../utils/generateToken.js';
-import User from '../models/userModel.js';
+import dotenv from "dotenv";
+dotenv.config();
+import asyncHandler from "../middleware/asyncHandler.js";
+import generateToken from "../utils/generateToken.js";
+import User from "../models/userModel.js";
 import sendEmail from "../config/mail.js";
-import registerEmail from "../data/registerEmail.js";
+import resetEmail from "../data/resetEmail.js";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -22,7 +24,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new Error("Invalid email or password");
   }
 });
 
@@ -36,7 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error("User already exists");
   }
 
   const user = await User.create({
@@ -47,7 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     generateToken(res, user._id);
-    sendEmail(user.email, "Registered with Bazaarlia!",registerEmail());
+    sendEmail(user.email, "Registered with Bazaarlia!", registerEmail());
 
     res.status(201).json({
       _id: user._id,
@@ -57,7 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error("Invalid user data");
   }
 });
 
@@ -65,8 +67,8 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req, res) => {
-  res.clearCookie('jwt');
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.clearCookie("jwt");
+  res.status(200).json({ message: "Logged out successfully" });
 };
 
 // @desc    Get user profile
@@ -84,7 +86,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -112,7 +114,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -133,13 +135,13 @@ const deleteUser = asyncHandler(async (req, res) => {
   if (user) {
     if (user.isAdmin) {
       res.status(400);
-      throw new Error('Can not delete admin user');
+      throw new Error("Can not delete admin user");
     }
     await User.deleteOne({ _id: user._id });
-    res.json({ message: 'User removed' });
+    res.json({ message: "User removed" });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -147,13 +149,13 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select('-password');
+  const user = await User.findById(req.params.id).select("-password");
 
   if (user) {
     res.json(user);
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 // @desc    Update user
@@ -177,7 +179,53 @@ const updateUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
+  }
+});
+
+// @desc    Forgot Password
+// @route   Post /api/users/forgotpassword
+// @access  Public Link
+const forgotPassword = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (user) {
+    const link = `${process.env.BASE_URL}/reset/${user._id}`;
+    sendEmail(user.email, "Reset Password!", resetEmail(link));
+    res.json({
+      message: "Password reset link is sent to your email!",
+    });
+  } else {
+    res.status(404);
+    throw new Error("User does not exist!");
+  }
+});
+
+// @desc    Reset Password
+// @route   PUT /api/users/resetpassword/:id
+// @access  Private Link
+const resetPassword = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.body._id);
+
+  if (user) {
+    user.name = user.name;
+    user.email = user.email;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
   }
 });
 
@@ -191,4 +239,6 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  resetPassword,
+  forgotPassword,
 };
