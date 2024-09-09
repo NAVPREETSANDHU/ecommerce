@@ -1,13 +1,24 @@
-import { useState } from 'react';
-import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import Rating from '../components/Rating';
-import { addToCart } from '../slices/cartSlice';
-import { useGetProductDetailsQuery, useCreateReviewMutation } from '../slices/productsApiSlice';
+import { useState } from "react";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Image,
+  ListGroup,
+  Row,
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import Rating from "../components/Rating";
+import { addToCart } from "../slices/cartSlice";
+import {
+  useGetProductDetailsQuery,
+  useCreateReviewMutation,
+} from "../slices/productsApiSlice";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
@@ -17,17 +28,23 @@ const ProductScreen = () => {
 
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
-  const { data: product, isLoading, error } = useGetProductDetailsQuery(productId);
+  const {
+    data: product,
+    refetch,
+    isLoading,
+    error,
+  } = useGetProductDetailsQuery(productId);
 
-  const [createReview, { isLoading: loadingProductReview }] = useCreateReviewMutation();
+  const [createReview, { isLoading: loadingProductReview }] =
+    useCreateReviewMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
-    navigate('/cart');
+    navigate("/cart");
   };
 
   const submitHandler = async (e) => {
@@ -38,9 +55,10 @@ const ProductScreen = () => {
         rating,
         comment,
       }).unwrap();
-      toast.success('Review Submitted');
+      toast.success("Review Submitted");
       setRating(0);
-      setComment('');
+      setComment("");
+      refetch();
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -49,12 +67,14 @@ const ProductScreen = () => {
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
-        Go Back
+        Back
       </Link>
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error?.data?.message || error.error}</Message>
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           <Row>
@@ -67,10 +87,15 @@ const ProductScreen = () => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                  <Rating
+                    value={product.rating}
+                    text={`${product.numReviews} reviews`}
+                  />
                 </ListGroup.Item>
                 <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-                <ListGroup.Item>Description: {product.description}</ListGroup.Item>
+                <ListGroup.Item>
+                  Description: {product.description}
+                </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col md={3}>
@@ -87,7 +112,9 @@ const ProductScreen = () => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Status:</Col>
-                      <Col>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</Col>
+                      <Col>
+                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                      </Col>
                     </Row>
                   </ListGroup.Item>
                   {product.countInStock > 0 && (
@@ -100,17 +127,19 @@ const ProductScreen = () => {
                             value={qty}
                             onChange={(e) => setQty(Number(e.target.value))}
                           >
-                            {[...Array(product.countInStock).keys()].map((x) => (
-                              <option key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </option>
-                            ))}
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
                           </Form.Control>
                         </Col>
                       </Row>
                     </ListGroup.Item>
                   )}
-                  <ListGroup.Item>
+                  <ListGroup.Item className="d-grid">
                     <Button
                       className="btn-block"
                       type="button"
@@ -126,18 +155,19 @@ const ProductScreen = () => {
           </Row>
           <Row className="review">
             <Col md={6}></Col>
-            <h2>Reviews</h2>
+            <h2 className="py-2">Reviews</h2>
             {product.reviews.length === 0 && <Message>No Reviews</Message>}
             <ListGroup variant="flush">
               {product.reviews.map((review) => (
                 <ListGroup.Item key={review._id}>
                   <strong>{review.name}</strong>
-                  <p>{review.createdAt.substring(0, 10)}</p>
+                  <Rating value={review.rating} text="" />
+                  <p style={{fontSize: "9px" }}>{review.createdAt.substring(0, 10)}</p>
                   <p>{review.comment}</p>
                 </ListGroup.Item>
               ))}
               <ListGroup.Item>
-                <h2>Write a Customer Review</h2>
+                <h4 className="pt-2">Write a Customer Review</h4>
 
                 {loadingProductReview && <Loader />}
                 {userInfo ? (
@@ -166,7 +196,11 @@ const ProductScreen = () => {
                         onChange={(e) => setComment(e.target.value)}
                       ></Form.Control>
                     </Form.Group>
-                    <Button disabled={loadingProductReview} type="submit" variant="primary">
+                    <Button
+                      disabled={loadingProductReview}
+                      type="submit"
+                      variant="primary"
+                    >
                       Submit
                     </Button>
                   </Form>

@@ -4,6 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
+import ForgotPassword from "../components/ForgotPassword";
 
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
@@ -29,6 +30,7 @@ const LoginScreen = () => {
       navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -70,17 +72,31 @@ const LoginScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button disabled={isLoading} type="submit" variant="primary">
+        <Button
+          disabled={isLoading}
+          type="submit"
+          variant="primary"
+          className="mt-2 px-5"
+        >
           Sign In
         </Button>
 
         {isLoading && <Loader />}
       </Form>
 
-      <Row className="py-3">
+      <Row>
         <Col>
-          New Customer?{" "}
-          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
+          <ForgotPassword />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          Are you new customer?{" "}
+          <Link
+            to={redirect ? `/register?redirect=${redirect}` : "/register"}
+            style={{ textDecoration: "none" }}
+          >
             Register
           </Link>
         </Col>

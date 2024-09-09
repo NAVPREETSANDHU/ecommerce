@@ -33,7 +33,7 @@ const Footer = () => {
 
           {/* Column 3 */}
           <Col>
-            <h4>Contact us!</h4>
+            <h6>Contact us!</h6>
             <p>info@bazaarlia.com</p>
             <p>Phone: +61 0404111000</p>
           </Col>

@@ -1,9 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  ListGroup,
+  Image,
+  Card,
+  Button,
+  Form,
+} from "react-bootstrap";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useSelector } from "react-redux";
-import moment from 'moment';
+import moment from "moment";
 import { toast } from "react-toastify";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -12,10 +20,12 @@ import {
   useGetOrderDetailsQuery,
   useGetPaypalClientIdQuery,
   usePayOrderMutation,
+  useTrackingOrderMutation,
 } from "../slices/ordersApiSlice";
 
 const OrderScreen = () => {
   const { id: orderId } = useParams();
+  const [trackingLink, setTrackingLink] = useState("");
 
   const {
     data: order,
@@ -28,6 +38,8 @@ const OrderScreen = () => {
 
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
+  const [trackingOrder, { isLoading: loadingTracking }] =
+    useTrackingOrderMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -101,6 +113,16 @@ const OrderScreen = () => {
       });
   }
 
+  const trackingHandler = async () => {
+    try {
+      await trackingOrder({ ...order, trackingLink: trackingLink }).unwrap();
+      toast.success("Tracking link has been sent to customer");
+      refetch();
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
   const deliverHandler = async () => {
     await deliverOrder(orderId);
     refetch();
@@ -133,7 +155,8 @@ const OrderScreen = () => {
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered on {moment(order.deliveredAt).format('YYYY/MM/DD HH:mm')}
+                  Delivered on{" "}
+                  {moment(order.deliveredAt).format("YYYY/MM/DD HH:mm")}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>
@@ -147,10 +170,20 @@ const OrderScreen = () => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {moment(order.paidAt).format('YYYY/MM/DD HH:mm')}</Message>
+                <Message variant="success">
+                  Paid on {moment(order.paidAt).format("YYYY/MM/DD HH:mm")}
+                </Message>
               ) : (
                 <Message variant="danger">Not Paid</Message>
               )}
+            </ListGroup.Item>
+
+            <ListGroup.Item>
+              <h2>Tracking Link</h2>
+              <p>
+                <strong>Link: </strong>
+                {order?.trackingLink}
+              </p>
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -224,14 +257,6 @@ const OrderScreen = () => {
                     <Loader />
                   ) : (
                     <div>
-                      {/* THIS BUTTON IS FOR TESTING! REMOVE BEFORE PRODUCTION! */}
-                      {/* <Button
-                        style={{ marginBottom: '10px' }}
-                        onClick={onApproveTest}
-                      >
-                        Test Pay Order
-                      </Button> */}
-
                       <div>
                         <PayPalButtons
                           createOrder={createOrder}
@@ -244,13 +269,31 @@ const OrderScreen = () => {
                 </ListGroup.Item>
               )}
 
-              {loadingDeliver && <Loader />}
+              {loadingTracking && <Loader />}
+              {userInfo && userInfo.isAdmin && order.isPaid && (
+                <ListGroup.Item className="d-grid">
+                  <Form.Group className="my-2">
+                    <Form.Control
+                      placeholder="Enter tracking link or Code"
+                      onChange={(e) => setTrackingLink(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                  <Button
+                    type="button"
+                    className="btn btn-block"
+                    onClick={trackingHandler}
+                  >
+                    Send Tacking ID or Link
+                  </Button>
+                </ListGroup.Item>
+              )}
 
+              {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&
                 order.isPaid &&
                 !order.isDelivered && (
-                  <ListGroup.Item>
+                  <ListGroup.Item className="d-grid">
                     <Button
                       type="button"
                       className="btn btn-block"

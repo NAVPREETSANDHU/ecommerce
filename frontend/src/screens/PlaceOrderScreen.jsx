@@ -134,7 +134,7 @@ const PlaceOrderScreen = () => {
                   <Message variant="danger">{error.data.message}</Message>
                 )}
               </ListGroup.Item>
-              <ListGroup.Item>
+              <ListGroup.Item className="d-grid">
                 <Button
                   type="button"
                   className="btn-block"

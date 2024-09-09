@@ -33,6 +33,7 @@ import ProductEditScreen from "./screens/admin/ProductEditScreen";
 import ProductListScreen from "./screens/admin/ProductListScreen";
 import UserEditScreen from "./screens/admin/UserEditScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
+import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import NotFoundPage from "./screens/NotFoundPage";
 
 
@@ -53,6 +54,7 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+      <Route path="/reset/:id" element={<ResetPasswordScreen />} />
       <Route path="*" element={<NotFoundPage />} />
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>

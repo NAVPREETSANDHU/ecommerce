@@ -10,7 +10,7 @@ import uploadRoutes from './routes/uploadRoutes.js';
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 connectDB();
 

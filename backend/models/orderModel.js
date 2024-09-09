@@ -30,6 +30,11 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    trackingLink: {
+      type: String,
+      required: false,
+      default: "",
+    },
     paymentResult: {
       id: { type: String },
       status: { type: String },
