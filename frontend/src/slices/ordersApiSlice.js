@@ -47,6 +47,13 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
       }),
     }),
+    trackingOrder: builder.mutation({
+      query: (data) => ({
+        url: `${ORDERS_URL}/${data._id}/track`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -58,4 +65,5 @@ export const {
   useGetMyOrdersQuery,
   useGetOrdersQuery,
   useDeliverOrderMutation,
+  useTrackingOrderMutation,
 } = orderApiSlice;
