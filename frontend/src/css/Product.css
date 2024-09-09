@@ -2,7 +2,8 @@
 .product-card {
     margin: 8px;
     width: 300px; /* Fixed width */
-    height: 400px; /* Fixed height */
+    min-height: 330px; /* Fixed height */
+    max-height: 400px;
     display: flex;
     flex-direction: column;
   }

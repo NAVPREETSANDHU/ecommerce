@@ -32,6 +32,7 @@ const ProductScreen = () => {
 
   const {
     data: product,
+    refetch,
     isLoading,
     error,
   } = useGetProductDetailsQuery(productId);
@@ -57,6 +58,7 @@ const ProductScreen = () => {
       toast.success("Review Submitted");
       setRating(0);
       setComment("");
+      refetch();
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -65,7 +67,7 @@ const ProductScreen = () => {
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
-        Go Back
+        Back
       </Link>
       {isLoading ? (
         <Loader />
@@ -153,18 +155,19 @@ const ProductScreen = () => {
           </Row>
           <Row className="review">
             <Col md={6}></Col>
-            <h2>Reviews</h2>
+            <h2 className="py-2">Reviews</h2>
             {product.reviews.length === 0 && <Message>No Reviews</Message>}
             <ListGroup variant="flush">
               {product.reviews.map((review) => (
                 <ListGroup.Item key={review._id}>
                   <strong>{review.name}</strong>
-                  <p>{review.createdAt.substring(0, 10)}</p>
+                  <Rating value={review.rating} text="" />
+                  <p style={{fontSize: "9px" }}>{review.createdAt.substring(0, 10)}</p>
                   <p>{review.comment}</p>
                 </ListGroup.Item>
               ))}
               <ListGroup.Item>
-                <h2>Write a Customer Review</h2>
+                <h4 className="pt-2">Write a Customer Review</h4>
 
                 {loadingProductReview && <Loader />}
                 {userInfo ? (
