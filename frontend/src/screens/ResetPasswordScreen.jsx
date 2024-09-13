@@ -29,7 +29,7 @@ const ResetPasswordScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await resetPassword({
+      await resetPassword({
         password: newPassword,
         _id: userId,
       }).unwrap();
