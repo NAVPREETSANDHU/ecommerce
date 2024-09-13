@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
