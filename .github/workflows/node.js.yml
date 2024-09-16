@@ -27,6 +27,7 @@ jobs:
     - name: Clean npm cache
       run: npm cache clean --force
     - run: npm ci
+    - run: npm install
     - run: npm run build
     - run: pm2 restart backend/server.js
     - run: |
