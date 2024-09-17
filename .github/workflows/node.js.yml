@@ -26,9 +26,12 @@ jobs:
         cache: 'npm'
     - name: Clean npm cache
       run: npm cache clean --force
-    - run: npm ci
-    - run: npm install
+    - run: npm i
+      env:
+         CI: false
     - run: npm run build
+      env:
+        NODE_OPTIONS: '--openssl-legacy-provider'
     - run: pm2 restart backend/server.js
     - run: |
         touch .env
