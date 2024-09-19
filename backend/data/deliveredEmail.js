@@ -1,5 +1,5 @@
 const deliveredEmail = (link) => {
-    return `
+  return `
     <html>
     <head>
       <style>
@@ -19,7 +19,7 @@ const deliveredEmail = (link) => {
           <p>Dear Customer,</p>
           <p>Your order has been delivered today.</p>
           <br>
-          <p>Best regards,<br>Marketing Head, <br>Matt Leo</p>
+        <p>Best regards,<br>Bazaarlia Team, <br>Novi</p>
         </div>
         <div class="footer">
           <p>©2024 Bazaarlia. All rights reserved.</p>
@@ -27,7 +27,6 @@ const deliveredEmail = (link) => {
       </div>
     </body>
     </html>`;
-  };
-  
-  export default deliveredEmail;
-  
+};
+
+export default deliveredEmail;

@@ -158,11 +158,10 @@ const ProductEditScreen = () => {
               <Form.Select value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option disabled>Select Category</option>
                 <option value="Electronics">Electronics</option>
-                <option value="Clothing">Clothing</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Utensils">Utensils</option>
+                <option value="Clothing & Shoes">Clothing & Shoes</option>
+                <option value="Kitchens">Kitchens</option>
                 <option value="Sports">Sports</option>
-                <option value="Toys">Toys</option>
+                <option value="Kids">Kids</option>
                 <option value="Health & Beauty">Health & Beauty</option>
               </Form.Select>
             </Form.Group>
@@ -182,7 +181,7 @@ const ProductEditScreen = () => {
               variant="primary"
               style={{ marginTop: "1rem" }}
             >
-              Update
+              Submit
             </Button>
           </Form>
         )}

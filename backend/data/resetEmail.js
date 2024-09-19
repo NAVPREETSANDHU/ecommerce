@@ -1,5 +1,5 @@
 const resetEmail = (link) => {
-    return `
+  return `
     <html>
     <head>
       <style>
@@ -19,7 +19,7 @@ const resetEmail = (link) => {
           <p>Dear Customer,</p>
           <p>Please click the to reset your password. Link: ${link}</p>
           <br>
-          <p>Best regards,<br>Marketing Head, <br>Matt Leo</p>
+          <p>Best regards,<br>Bazaarlia Team, <br>Novi</p>
         </div>
         <div class="footer">
           <p>©2024 Bazaarlia. All rights reserved.</p>
@@ -27,7 +27,6 @@ const resetEmail = (link) => {
       </div>
     </body>
     </html>`;
-  };
-  
-  export default resetEmail;
-  
+};
+
+export default resetEmail;

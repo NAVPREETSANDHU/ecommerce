@@ -1,13 +1,26 @@
 const dispatchOrderEmail = (data) => {
-  const { orderItems, totalPrice, taxPrice, shippingAddress, paymentMethod, trackingLink } = data;
+  const {
+    orderItems,
+    totalPrice,
+    taxPrice,
+    shippingAddress,
+    paymentMethod,
+    trackingLink,
+  } = data;
 
   // Format the order items into an HTML list
-  const orderItemsHtml = orderItems.map(item => `
+  const orderItemsHtml = orderItems
+    .map(
+      (item) => `
     <li>
-      <img src="${item.image}" alt="${item.name}" style="width: 50px; height: auto;"/>
+      <img src="${item.image}" alt="${
+        item.name
+      }" style="width: 50px; height: auto;"/>
       ${item.name} - ${item.qty} x $${item.price.toFixed(2)}
     </li>
-  `).join('');
+  `
+    )
+    .join("");
 
   return `
   <html>
@@ -39,7 +52,9 @@ const dispatchOrderEmail = (data) => {
         <p>$${taxPrice.toFixed(2)}</p>
         
         <h2>Shipping Address:</h2>
-        <p>${shippingAddress.address}, ${shippingAddress.city}, ${shippingAddress.postalCode}, ${shippingAddress.country}</p>
+        <p>${shippingAddress.address}, ${shippingAddress.city}, ${
+    shippingAddress.postalCode
+  }, ${shippingAddress.country}</p>
         
         <h2>Payment Method:</h2>
         <p>${paymentMethod}</p>
@@ -48,7 +63,7 @@ const dispatchOrderEmail = (data) => {
         <p>${trackingLink}</p>
         
         <br>
-        <p>Best regards,<br>Marketing Head, <br>Matt Leo</p>
+        <p>Best regards,<br>Bazaarlia Team, <br>Novi</p>
       </div>
       <div class="footer">
         <p>©2024 Bazaarlia. All rights reserved.</p>
