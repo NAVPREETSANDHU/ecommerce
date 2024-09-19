@@ -45,7 +45,7 @@ const newOrderEmail = (data) => {
         <p>${paymentMethod}</p>
         
         <br>
-        <p>Best regards,<br>Marketing Head, <br>Matt Leo</p>
+        <p>Best regards,<br>Bazaarlia Team, <br>Novi</p>
       </div>
       <div class="footer">
         <p>©2024 Bazaarlia. All rights reserved.</p>

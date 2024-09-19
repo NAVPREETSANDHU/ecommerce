@@ -83,14 +83,6 @@ const OrderScreen = () => {
     });
   }
 
-  // TESTING ONLY! REMOVE BEFORE PRODUCTION
-  // async function onApproveTest() {
-  //   await payOrder({ orderId, details: { payer: {} } });
-  //   refetch();
-
-  //   toast.success('Order is paid');
-  // }
-
   function onError(err) {
     toast.error(err.message);
   }
@@ -270,23 +262,26 @@ const OrderScreen = () => {
               )}
 
               {loadingTracking && <Loader />}
-              {userInfo && userInfo.isAdmin && order.isPaid && (
-                <ListGroup.Item className="d-grid">
-                  <Form.Group className="my-2">
-                    <Form.Control
-                      placeholder="Enter tracking link or Code"
-                      onChange={(e) => setTrackingLink(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Button
-                    type="button"
-                    className="btn btn-block"
-                    onClick={trackingHandler}
-                  >
-                    Send Tacking ID or Link
-                  </Button>
-                </ListGroup.Item>
-              )}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item className="d-grid">
+                    <Form.Group className="my-2">
+                      <Form.Control
+                        placeholder="Enter tracking link or Code"
+                        onChange={(e) => setTrackingLink(e.target.value)}
+                      ></Form.Control>
+                    </Form.Group>
+                    <Button
+                      type="button"
+                      className="btn btn-block"
+                      onClick={trackingHandler}
+                    >
+                      Send Tacking ID or Link
+                    </Button>
+                  </ListGroup.Item>
+                )}
 
               {loadingDeliver && <Loader />}
               {userInfo &&
