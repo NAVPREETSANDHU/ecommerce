@@ -5,6 +5,7 @@ import "../css/Product.css";
 
 const Product = ({ product }) => {
   return (
+    <div className="d-flex justify-content-around">
     <Link to={`/product/${product._id}`} className="product-card-link">
       <Card className="product-card">
         <Card.Img src={product.image} variant="top" className="product-image" />
@@ -25,6 +26,7 @@ const Product = ({ product }) => {
         </Card.Body>
       </Card>
     </Link>
+    </div>
   );
 };
 
