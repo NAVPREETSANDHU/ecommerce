@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Col, Row, Dropdown } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Meta from "../components/Meta";
 import Paginate from "../components/Paginate";
 import Product from "../components/Product";
 import ProductCarousel from "../components/ProductCarousel";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
+import Skeleton from "../components/Skeleton";
 
 const HomeScreen = () => {
   const { pageNumber, keyword } = useParams();
   const [filter, setFilter] = useState("");
+
+  // Create an array with 12 elements
+  const cards = Array.from({ length: 12 }, (_, index) => `Card ${index + 1}`);
 
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
@@ -32,9 +35,7 @@ const HomeScreen = () => {
           Go Back
         </Link>
       )}
-      {isLoading ? (
-        <Loader />
-      ) : error ? (
+      {error ? (
         <Message variant="danger">
           {error?.data?.message || error.error}
         </Message>
@@ -92,25 +93,47 @@ const HomeScreen = () => {
               )}
             </Col>
           </Row>
-          <Row className="mb-4">
-            {data?.products && data.products.length > 0 ? (
-              data?.products.map((product) => (
-                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                  <Product product={product} />
-                </Col>
-              ))
-            ) : (
-              <Col className="d-flex justify-content-center align-items-center" style={{ height: '30vh' }}>
-                <p style={{ opacity: 0.5 }}>Products not available</p>
-              </Col>
-            )}
-          </Row>
 
-          <Paginate
-            pages={data.pages}
-            page={data.page}
-            keyword={keyword ? keyword : ""}
-          />
+          {isLoading ? (
+            <Row>
+              {cards.map((index) => (
+                <Col key={index} sm={12} md={6} lg={4} xl={3}>
+                  <Skeleton />
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <Row>
+              <Row className="mb-4">
+                {data?.products && data.products.length > 0 ? (
+                  data?.products.map((product) => (
+                    <Col
+                      key={product._id}
+                      className="mt-2"
+                      sm={12}
+                      md={6}
+                      lg={4}
+                      xl={3}
+                    >
+                      <Product product={product} />
+                    </Col>
+                  ))
+                ) : (
+                  <Col
+                    className="d-flex justify-content-center align-items-center"
+                    style={{ height: "30vh" }}
+                  >
+                    <p style={{ opacity: 0.5 }}>Products not available</p>
+                  </Col>
+                )}
+              </Row>
+              <Paginate
+                pages={data.pages}
+                page={data.page}
+                keyword={keyword ? keyword : ""}
+              />
+            </Row>
+          )}
         </>
       )}
     </>

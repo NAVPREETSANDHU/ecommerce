@@ -25,8 +25,8 @@ const Footer = () => {
               <NavLink href="/about" className="text-white">
                 About{" "}
               </NavLink>
-              <NavLink href="/cart" className="text-white">
-                Cart
+              <NavLink href="/t&c" className="text-white">
+                Terms & Conditions
               </NavLink>
             </Nav>
           </Col>

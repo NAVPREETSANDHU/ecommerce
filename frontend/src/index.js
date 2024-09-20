@@ -34,8 +34,8 @@ import ProductListScreen from "./screens/admin/ProductListScreen";
 import UserEditScreen from "./screens/admin/UserEditScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import TermsAndConditions from "./screens/TermsAndConditions";
 import NotFoundPage from "./screens/NotFoundPage";
-
 
 import store from "./store";
 
@@ -56,6 +56,7 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/reset/:id" element={<ResetPasswordScreen />} />
       <Route path="*" element={<NotFoundPage />} />
+      <Route path="/t&c" element={<TermsAndConditions />} />
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/shipping" element={<ShippingScreen />} />
