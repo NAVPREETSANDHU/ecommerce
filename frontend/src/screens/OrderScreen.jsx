@@ -90,10 +90,17 @@ const OrderScreen = () => {
   function createOrder(data, actions) {
     return actions.order
       .create({
+        payment_source: {
+          paypal : {
+            address : {
+              country_code: "AU"
+            }
+          }
+        },
         purchase_units: [
           {
-            currency_code: "AUD",
             amount: { value: order.totalPrice },
+            currency_code: "AUD",
           },
         ],
         application_context: {

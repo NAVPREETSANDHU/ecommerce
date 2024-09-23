@@ -72,7 +72,7 @@ const About = () => {
               <Card>
                 <Card.Img variant="top" src="https://bazaarlia.s3.amazonaws.com/image-1725624846341.jpeg" alt="Team Member" />
                 <Card.Body>
-                  <Card.Title>EMilan Korangi</Card.Title>
+                  <Card.Title>Milan Korangi</Card.Title>
                   <Card.Text>Marketing Director</Card.Text>
                 </Card.Body>
               </Card>
