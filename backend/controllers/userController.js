@@ -5,6 +5,7 @@ import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
 import sendEmail from "../config/mail.js";
 import resetEmail from "../data/resetEmail.js";
+import registerEmail from "../data/registerEmail.js";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
