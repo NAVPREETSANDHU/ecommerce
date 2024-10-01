@@ -1,60 +1,60 @@
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
 const Rating = ({ value, text, color }) => {
   return (
-    <div className='rating'>
+    <div className="rating">
       <span>
         {value >= 1 ? (
-          <FaStar />
+          <FaStar style={{ color }} aria-label="full star" />
         ) : value >= 0.5 ? (
-          <FaStarHalfAlt />
+          <FaStarHalfAlt style={{ color }} aria-label="half star" />
         ) : (
-          <FaRegStar />
+          <FaRegStar style={{ color }} aria-label="empty star" />
         )}
       </span>
       <span>
         {value >= 2 ? (
-          <FaStar />
+          <FaStar style={{ color }} aria-label="full star" />
         ) : value >= 1.5 ? (
-          <FaStarHalfAlt />
+          <FaStarHalfAlt style={{ color }} aria-label="half star" />
         ) : (
-          <FaRegStar />
+          <FaRegStar style={{ color }} aria-label="empty star" />
         )}
       </span>
       <span>
         {value >= 3 ? (
-          <FaStar />
+          <FaStar style={{ color }} aria-label="full star" />
         ) : value >= 2.5 ? (
-          <FaStarHalfAlt />
+          <FaStarHalfAlt style={{ color }} aria-label="half star" />
         ) : (
-          <FaRegStar />
+          <FaRegStar style={{ color }} aria-label="empty star" />
         )}
       </span>
       <span>
         {value >= 4 ? (
-          <FaStar />
+          <FaStar style={{ color }} aria-label="full star" />
         ) : value >= 3.5 ? (
-          <FaStarHalfAlt />
+          <FaStarHalfAlt style={{ color }} aria-label="half star" />
         ) : (
-          <FaRegStar />
+          <FaRegStar style={{ color }} aria-label="empty star" />
         )}
       </span>
       <span>
         {value >= 5 ? (
-          <FaStar />
+          <FaStar style={{ color }} aria-label="full star" />
         ) : value >= 4.5 ? (
-          <FaStarHalfAlt />
+          <FaStarHalfAlt style={{ color }} aria-label="half star" />
         ) : (
-          <FaRegStar />
+          <FaRegStar style={{ color }} aria-label="empty star" />
         )}
       </span>
-      <span className='rating-text'>{text && text}</span>
+      {text && <span className="rating-text">{text}</span>}
     </div>
   );
 };
 
 Rating.defaultProps = {
-  color: '#f8e825',
+  color: "#f8e825",
 };
 
 export default Rating;
