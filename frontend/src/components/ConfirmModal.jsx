@@ -14,6 +14,7 @@ function ConfirmModal({ handleConfirm, title, body, children }) {
 
   return (
     <>
+      {/* Render children to provide a way to open the modal */}
       {children(handleShow)}
 
       <Modal

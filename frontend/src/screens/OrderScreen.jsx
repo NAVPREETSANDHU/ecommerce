@@ -140,22 +140,22 @@ const OrderScreen = () => {
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
-                <strong>Name: </strong> {order.user.name}
+                <strong>Name: </strong> {order?.user?.name}
               </p>
               <p>
                 <strong>Email: </strong>{" "}
-                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+                <a href={`mailto:${order?.user?.email}`}>{order?.user?.email}</a>
               </p>
               <p>
                 <strong>Address:</strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
-                {order.shippingAddress.postalCode},{" "}
-                {order.shippingAddress.country}
+                {order?.shippingAddress?.address}, {order?.shippingAddress?.city}{" "}
+                {order?.shippingAddress?.postalCode},{" "}
+                {order?.shippingAddress?.country}
               </p>
-              {order.isDelivered ? (
+              {order?.isDelivered ? (
                 <Message variant="success">
                   Delivered on{" "}
-                  {moment(order.deliveredAt).format("YYYY/MM/DD HH:mm")}
+                  {moment(order?.deliveredAt).format("YYYY/MM/DD HH:mm")}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>
@@ -187,11 +187,11 @@ const OrderScreen = () => {
 
             <ListGroup.Item>
               <h2>Order Items</h2>
-              {order.orderItems.length === 0 ? (
+              {order?.orderItems?.length === 0 ? (
                 <Message>Order is empty</Message>
               ) : (
                 <ListGroup variant="flush">
-                  {order.orderItems.map((item, index) => (
+                  {order?.orderItems?.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
                         <Col md={1}>
