@@ -1,13 +1,14 @@
-import React from 'react';
-import { Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
+//Checkout steps component used during purchasing items
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   return (
-    <Nav className='justify-content-center mb-4'>
+    <Nav className="justify-content-center mb-4">
       <Nav.Item>
         {step1 ? (
-          <Nav.Link as={Link} to='/login'>
+          <Nav.Link as={Link} to="/login">
             Sign In
           </Nav.Link>
         ) : (
@@ -17,7 +18,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
 
       <Nav.Item>
         {step2 ? (
-          <Nav.Link as={Link} to='/shipping'>
+          <Nav.Link as={Link} to="/shipping">
             Shipping
           </Nav.Link>
         ) : (
@@ -27,7 +28,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
 
       <Nav.Item>
         {step3 ? (
-          <Nav.Link as={Link} to='/payment'>
+          <Nav.Link as={Link} to="/payment">
             Payment
           </Nav.Link>
         ) : (
@@ -37,7 +38,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
 
       <Nav.Item>
         {step4 ? (
-          <Nav.Link as={Link} to='/placeorder'>
+          <Nav.Link as={Link} to="/placeorder">
             Place Order
           </Nav.Link>
         ) : (

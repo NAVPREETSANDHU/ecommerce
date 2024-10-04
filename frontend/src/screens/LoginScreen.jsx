@@ -10,28 +10,30 @@ import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
+//Login page
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); // hooks for storing and changing email
+  const [password, setPassword] = useState(""); // hooks for storing and changing password
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch(); // hooks to dispatch action
+  const navigate = useNavigate(); // hooks to navigate
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation(); //custom hooks to post login data
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth); // hooks to fetch data in global store of redux
 
-  const { search } = useLocation();
+  const { search } = useLocation(); // hooks to get data in search
   const sp = new URLSearchParams(search);
   const redirect = sp.get("redirect") || "/";
 
+  //hooks to main life cycle of login screen
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
   }, [navigate, redirect, userInfo]);
 
-
+  //Login data submit handler function
   const submitHandler = async (e) => {
     e.preventDefault();
     try {

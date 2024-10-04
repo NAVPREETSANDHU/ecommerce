@@ -6,20 +6,22 @@ import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { saveShippingAddress } from "../slices/cartSlice";
 
+//Shipping data collection page
 const ShippingScreen = () => {
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const cart = useSelector((state) => state.cart); //get data of cart from store
+  const { shippingAddress } = cart; //destructure shippingAddress from cart object
 
-  const [address, setAddress] = useState(shippingAddress.address || "");
-  const [city, setCity] = useState(shippingAddress.city || "");
+  const [address, setAddress] = useState(shippingAddress.address || ""); //set address state
+  const [city, setCity] = useState(shippingAddress.city || ""); //set city state
   const [postalCode, setPostalCode] = useState(
     shippingAddress.postalCode || ""
-  );
-  const [country, setCountry] = useState(shippingAddress.country || "");
+  ); // set postal code state
+  const [country, setCountry] = useState(shippingAddress.country || ""); //set country state
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //function to submit shipping data form
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));

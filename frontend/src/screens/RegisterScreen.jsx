@@ -9,18 +9,19 @@ import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
+//User registration page
 const RegisterScreen = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState(""); // set name hooks
+  const [email, setEmail] = useState(""); // set email hooks
+  const [password, setPassword] = useState(""); // set password state hooks
+  const [confirmPassword, setConfirmPassword] = useState(""); // set confirm password state hooks
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [register, { isLoading }] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation(); //hooks to sent register user data to api
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth); //get user data from redux store
 
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
@@ -32,6 +33,7 @@ const RegisterScreen = () => {
     }
   }, [navigate, redirect, userInfo]);
 
+  //submit handler function of register form data
   const submitHandler = async (e) => {
     e.preventDefault();
 

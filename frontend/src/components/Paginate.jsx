@@ -1,7 +1,8 @@
-import { Pagination } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Pagination } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
+//Component to paginate
+const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
   return (
     pages > 1 && (
       <Pagination>

@@ -5,15 +5,19 @@ import Modal from "react-bootstrap/Modal";
 import { useForgotPasswordMutation } from "../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
+//Forget password page
 function ForgotPassword() {
+  //Set state hooks for show, error and email
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
 
-  const [forgotPassword] = useForgotPasswordMutation();
+  const [forgotPassword] = useForgotPasswordMutation(); //costum hooks to send forget data to api
 
+  //function to show model of forget passwrod form
   const handleShow = () => setShow(true);
 
+  //Forget password form submit handler
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateEmail(email)) {
@@ -34,6 +38,7 @@ function ForgotPassword() {
     }
   };
 
+  //Function to validate email in form
   const validateEmail = (email) => {
     // Basic regex for email validation
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

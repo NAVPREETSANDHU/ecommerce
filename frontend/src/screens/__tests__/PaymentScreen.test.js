@@ -34,7 +34,7 @@ describe("PaymentScreen", () => {
     reactRouterDom.useNavigate.mockReturnValue(navigate);
 
     store = mockStore({
-      cart: { shippingAddress: {} }, // Simulate no shipping address
+      cart: { shippingAddress: {} }, // no shipping address
     });
   });
 
@@ -47,13 +47,13 @@ describe("PaymentScreen", () => {
       </Provider>
     );
 
-    // Assert that the navigation to shipping happened
+    // Assert that the navigation to shipping occured
     expect(navigate).toHaveBeenCalledWith("/shipping");
   });
 
   it("dispatches savePaymentMethod and navigates on form submission", () => {
     store = mockStore({
-      cart: { shippingAddress: { address: "123 Main St" } }, // Simulate existing shipping address
+      cart: { shippingAddress: { address: "123 Main St" } }, // existing shipping address
     });
 
     render(

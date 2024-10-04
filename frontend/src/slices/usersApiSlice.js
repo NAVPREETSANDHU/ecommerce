@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { USERS_URL } from "../constants";
 
+// costum hooks for users api
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({

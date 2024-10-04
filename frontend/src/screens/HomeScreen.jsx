@@ -9,11 +9,12 @@ import ProductCarousel from "../components/ProductCarousel";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import Skeleton from "../components/Skeleton";
 
+// Landing page of the Bazaarlia
 const HomeScreen = () => {
   const { pageNumber, keyword } = useParams();
   const [filter, setFilter] = useState("");
 
-  // Create an array with 12 elements
+  // Create an array with 12 elements for skeleton when data loading
   const cards = Array.from({ length: 12 }, (_, index) => `Card ${index + 1}`);
 
   const { data, isLoading, error } = useGetProductsQuery({
@@ -22,6 +23,7 @@ const HomeScreen = () => {
     pageNumber,
   });
 
+  //filter handler function based on category
   const handleFilter = (fil) => {
     setFilter(fil);
   };

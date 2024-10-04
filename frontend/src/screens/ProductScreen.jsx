@@ -20,33 +20,36 @@ import {
   useCreateReviewMutation,
 } from "../slices/productsApiSlice";
 
+//Product details page
 const ProductScreen = () => {
-  const { id: productId } = useParams();
+  const { id: productId } = useParams(); // hooks to get id from url
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [qty, setQty] = useState(1);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [qty, setQty] = useState(1); // set quantity state
+  const [rating, setRating] = useState(0); // set rating state
+  const [comment, setComment] = useState(""); // set comment state
 
   const {
     data: product,
     refetch,
     isLoading,
     error,
-  } = useGetProductDetailsQuery(productId);
+  } = useGetProductDetailsQuery(productId); // hooks to get product details from api
 
   const [createReview, { isLoading: loadingProductReview }] =
-    useCreateReviewMutation();
+    useCreateReviewMutation(); // hooks to create reivew on product
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth); // get logged in user data from redux store
 
+  //add items to cart handler function
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     navigate("/cart");
   };
 
+  //functions to submit reivew
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -162,7 +165,9 @@ const ProductScreen = () => {
                 <ListGroup.Item key={review._id}>
                   <strong>{review.name}</strong>
                   <Rating value={review.rating} text="" />
-                  <p style={{fontSize: "9px" }}>{review.createdAt.substring(0, 10)}</p>
+                  <p style={{ fontSize: "9px" }}>
+                    {review.createdAt.substring(0, 10)}
+                  </p>
                   <p>{review.comment}</p>
                 </ListGroup.Item>
               ))}

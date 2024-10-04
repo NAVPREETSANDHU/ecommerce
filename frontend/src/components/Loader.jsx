@@ -1,15 +1,16 @@
-import { Spinner } from 'react-bootstrap';
+import { Spinner } from "react-bootstrap";
 
+//Loader commponet to load during loading data from api
 const Loader = () => {
   return (
     <Spinner
-      animation='border'
-      role='status'
+      animation="border"
+      role="status"
       style={{
-        width: '70px',
-        height: '70px',
-        margin: 'auto',
-        display: 'block',
+        width: "70px",
+        height: "70px",
+        margin: "auto",
+        display: "block",
       }}
     ></Spinner>
   );
