@@ -1,4 +1,3 @@
-// src/pages/__tests__/NotFoundPage.test.js
 import React from "react";
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
