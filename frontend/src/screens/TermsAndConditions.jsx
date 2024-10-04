@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
+//Terms and conditions page of Bazaarlia
 const TermsAndConditions = () => {
   return (
     <Container className="my-4">
@@ -100,7 +101,8 @@ const TermsAndConditions = () => {
         <Col>
           <h2>9. Contact Us</h2>
           <p>
-            If you have any questions about these terms, please contact us at provided contact details.
+            If you have any questions about these terms, please contact us at
+            provided contact details.
           </p>
         </Col>
       </Row>

@@ -1,6 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
 
+//Skeleton of Product Card
 function Skeleton() {
   return (
     <div className="d-flex justify-content-around">

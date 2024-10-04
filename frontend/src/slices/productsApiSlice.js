@@ -1,6 +1,7 @@
-import { PRODUCTS_URL } from '../constants';
-import { apiSlice } from './apiSlice';
+import { PRODUCTS_URL } from "../constants";
+import { apiSlice } from "./apiSlice";
 
+// costum hooks for product api
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
@@ -9,7 +10,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         params: { keyword, filter, pageNumber },
       }),
       keepUnusedDataFor: 5,
-      providesTags: ['Products'],
+      providesTags: ["Products"],
     }),
     getProductDetails: builder.query({
       query: (productId) => ({
@@ -20,39 +21,39 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     createProduct: builder.mutation({
       query: () => ({
         url: `${PRODUCTS_URL}`,
-        method: 'POST',
+        method: "POST",
       }),
-      invalidatesTags: ['Product'],
+      invalidatesTags: ["Product"],
     }),
     updateProduct: builder.mutation({
       query: (data) => ({
         url: `${PRODUCTS_URL}/${data.productId}`,
-        method: 'PUT',
+        method: "PUT",
         body: data,
       }),
-      invalidatesTags: ['Products'],
+      invalidatesTags: ["Products"],
     }),
     uploadProductImage: builder.mutation({
       query: (data) => ({
         url: `/api/upload`,
-        method: 'POST',
+        method: "POST",
         body: data,
       }),
     }),
     deleteProduct: builder.mutation({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      providesTags: ['Product'],
+      providesTags: ["Product"],
     }),
     createReview: builder.mutation({
       query: (data) => ({
         url: `${PRODUCTS_URL}/${data.productId}/reviews`,
-        method: 'POST',
+        method: "POST",
         body: data,
       }),
-      invalidatesTags: ['Product'],
+      invalidatesTags: ["Product"],
     }),
     getTopProducts: builder.query({
       query: () => `${PRODUCTS_URL}/top`,

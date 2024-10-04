@@ -23,18 +23,19 @@ import {
   useTrackingOrderMutation,
 } from "../slices/ordersApiSlice";
 
+//Order Page
 const OrderScreen = () => {
-  const { id: orderId } = useParams();
-  const [trackingLink, setTrackingLink] = useState("");
+  const { id: orderId } = useParams(); //hooks to capture id in url params
+  const [trackingLink, setTrackingLink] = useState(""); //hooks to set state of tracking link
 
   const {
     data: order,
     refetch,
     isLoading,
     error,
-  } = useGetOrderDetailsQuery(orderId);
+  } = useGetOrderDetailsQuery(orderId); // Custom hooks to get data of order
 
-  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation(); // custom hooks to pay for order
 
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
@@ -43,13 +44,13 @@ const OrderScreen = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer(); // paypal hooks used to load scripts of paypal
 
   const {
     data: paypal,
     isLoading: loadingPayPal,
     error: errorPayPal,
-  } = useGetPaypalClientIdQuery();
+  } = useGetPaypalClientIdQuery(); // custom hooks to load clientID  stored in backend
 
   useEffect(() => {
     if (!errorPayPal && !loadingPayPal && paypal.clientId) {
@@ -71,6 +72,7 @@ const OrderScreen = () => {
     }
   }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
 
+  //paypal function to call on payment approval
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -87,15 +89,16 @@ const OrderScreen = () => {
     toast.error(err.message);
   }
 
+  //create order function of paypal
   function createOrder(data, actions) {
     return actions.order
       .create({
         payment_source: {
-          paypal : {
-            address : {
-              country_code: "AU"
-            }
-          }
+          paypal: {
+            address: {
+              country_code: "AU",
+            },
+          },
         },
         purchase_units: [
           {
@@ -112,6 +115,7 @@ const OrderScreen = () => {
       });
   }
 
+  //fuctions to sent tranking link to customer
   const trackingHandler = async () => {
     try {
       await trackingOrder({ ...order, trackingLink: trackingLink }).unwrap();
@@ -122,6 +126,7 @@ const OrderScreen = () => {
     }
   };
 
+  //function to make order as delivered
   const deliverHandler = async () => {
     await deliverOrder(orderId);
     refetch();
@@ -144,11 +149,14 @@ const OrderScreen = () => {
               </p>
               <p>
                 <strong>Email: </strong>{" "}
-                <a href={`mailto:${order?.user?.email}`}>{order?.user?.email}</a>
+                <a href={`mailto:${order?.user?.email}`}>
+                  {order?.user?.email}
+                </a>
               </p>
               <p>
                 <strong>Address:</strong>
-                {order?.shippingAddress?.address}, {order?.shippingAddress?.city}{" "}
+                {order?.shippingAddress?.address},{" "}
+                {order?.shippingAddress?.city}{" "}
                 {order?.shippingAddress?.postalCode},{" "}
                 {order?.shippingAddress?.country}
               </p>

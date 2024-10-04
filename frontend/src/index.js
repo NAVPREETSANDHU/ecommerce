@@ -37,8 +37,9 @@ import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import TermsAndConditions from "./screens/TermsAndConditions";
 import NotFoundPage from "./screens/NotFoundPage";
 
-import store from "./store";
+import store from "./store"; // redux store
 
+//Router of all the pages which are privaate, public and protected
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>

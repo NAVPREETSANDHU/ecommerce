@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import ConfirmModal from "../ConfirmModal"; // Adjust the import based on your file structure
+import ConfirmModal from "../ConfirmModal";
 
 describe("ConfirmModal Component", () => {
   test("renders correctly with title and body", () => {

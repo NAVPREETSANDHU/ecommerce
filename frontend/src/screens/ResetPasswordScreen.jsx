@@ -6,17 +6,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useResetPasswordMutation } from "../slices/usersApiSlice";
 
+//reset password page
 const ResetPasswordScreen = () => {
-  const { id: userId } = useParams();
-
-  const [error, setError] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
+  const { id: userId } = useParams(); //get id from url hooks
   const navigate = useNavigate();
 
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const [error, setError] = useState(""); //set state for error
+  const [newPassword, setNewPassword] = useState(""); //set state for new password
+  const [confirmPassword, setConfirmPassword] = useState(""); //set state for confirm password
 
+  const [resetPassword, { isLoading }] = useResetPasswordMutation(); //costum hooks to send reset password data to api
+
+  //function to match two password and confirm password
   const handleConfirm = (e) => {
     setConfirmPassword(e.target.value);
     if (newPassword !== e.target.value) {
@@ -26,6 +27,7 @@ const ResetPasswordScreen = () => {
     }
   };
 
+  //function to submit data of reset form
   const submitHandler = async (e) => {
     e.preventDefault();
     try {

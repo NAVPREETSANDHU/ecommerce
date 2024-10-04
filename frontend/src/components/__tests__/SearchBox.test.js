@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter, Routes, Route, useNavigate } from "react-router-dom";
-import SearchBox from "../SearchBox"; // Adjust the import based on your file structure
+import SearchBox from "../SearchBox";
 
 // Mocking the useNavigate hook
 jest.mock("react-router-dom", () => {

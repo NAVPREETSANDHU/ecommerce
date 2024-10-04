@@ -1,6 +1,7 @@
 import React from "react";
 import { Placeholder } from "react-bootstrap";
 
+//Carousel skelton component
 const CarouselSkeleton = () => (
   <div style={{ height: "400px", position: "relative" }}>
     <Placeholder as="div" animation="glow" style={{ height: "100%" }}>

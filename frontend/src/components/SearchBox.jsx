@@ -7,9 +7,9 @@ const SearchBox = () => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
 
-  // FIX: uncontrolled input - urlKeyword may be undefined
   const [keyword, setKeyword] = useState(urlKeyword || "");
 
+  //Search form handler
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword) {

@@ -9,12 +9,14 @@ import Loader from "../components/Loader";
 import { useCreateOrderMutation } from "../slices/ordersApiSlice";
 import { clearCartItems } from "../slices/cartSlice";
 
+//Order placing Page
 const PlaceOrderScreen = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart); //get cart data from store
 
-  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+  const [createOrder, { isLoading, error }] = useCreateOrderMutation(); // create order hooks
 
   useEffect(() => {
     if (!cart.shippingAddress.address) {
@@ -24,7 +26,7 @@ const PlaceOrderScreen = () => {
     }
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
-  const dispatch = useDispatch();
+  //Place order handler functions to create order
   const placeOrderHandler = async () => {
     try {
       const res = await createOrder({

@@ -11,25 +11,27 @@ import { useGetMyOrdersQuery } from "../slices/ordersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { Link } from "react-router-dom";
 
+//User/admin profile screen
 const ProfileScreen = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useDispatch();
+  const [name, setName] = useState(""); //set name state
+  const [email, setEmail] = useState(""); // set email state
+  const [password, setPassword] = useState(""); //set password state
+  const [confirmPassword, setConfirmPassword] = useState(""); //set confirm password state
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth); //get data from redux store
 
-  const { data: orders, isLoading, error } = useGetMyOrdersQuery();
+  const { data: orders, isLoading, error } = useGetMyOrdersQuery(); //hooks to get order history from api
 
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
-    useProfileMutation();
+    useProfileMutation(); // hooks to update profile
 
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
   }, [userInfo.email, userInfo.name]);
 
-  const dispatch = useDispatch();
+  //Submit handler of update profile form
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -37,9 +39,6 @@ const ProfileScreen = () => {
     } else {
       try {
         const res = await updateProfile({
-          // NOTE: here we don't need the _id in the request payload as this is
-          // not used in our controller.
-          // _id: userInfo._id,
           name,
           email,
           password,

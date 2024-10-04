@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Stack, Nav, NavLink } from "react-bootstrap";
 
+//Footer component
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (

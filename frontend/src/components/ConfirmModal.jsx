@@ -2,11 +2,15 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+//Confirm modal component
 function ConfirmModal({ handleConfirm, title, body, children }) {
   const [show, setShow] = useState(false);
 
+  //function to close modal
   const handleClose = () => setShow(false);
+  //function to show modal
   const handleShow = () => setShow(true);
+  //fucntion handle confirmation from user
   const handleSuccess = () => {
     handleConfirm();
     handleClose();
@@ -14,9 +18,7 @@ function ConfirmModal({ handleConfirm, title, body, children }) {
 
   return (
     <>
-      {/* Render children to provide a way to open the modal */}
       {children(handleShow)}
-
       <Modal
         show={show}
         onHide={handleClose}

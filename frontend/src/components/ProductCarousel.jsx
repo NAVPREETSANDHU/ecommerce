@@ -4,6 +4,7 @@ import Message from "./Message";
 import { useGetTopProductsQuery } from "../slices/productsApiSlice";
 import CarouselSkeleton from "./CarouselSkeleton";
 
+//Product Carousel of banner of landing page
 const ProductCarousel = () => {
   const { data: products, isLoading, error } = useGetTopProductsQuery();
 
@@ -38,5 +39,3 @@ const ProductCarousel = () => {
 };
 
 export default ProductCarousel;
-
-

@@ -4,6 +4,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import '../css/404Page.css';
 
+// This page is loaded whenever user navigate to wrong url
 const NotFoundPage = () => {
   return (
     <Container className="d-flex flex-column justify-content-center align-items-center min-vh-100 text-center">

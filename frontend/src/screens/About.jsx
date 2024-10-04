@@ -4,6 +4,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/About.css';
 
+//This is about page of Bazaarlia which provides information of this platform to users.
 const About = () => {
   return (
     <Container className="about-us-container py-5">
