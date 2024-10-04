@@ -1,4 +1,3 @@
-// src/screens/__tests__/OrderScreen.test.js
 import React from "react";
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";

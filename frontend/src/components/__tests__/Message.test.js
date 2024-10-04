@@ -19,4 +19,5 @@ describe("Message Component", () => {
     );
     expect(container.querySelector(".alert-danger")).toBeInTheDocument();
   });
+  
 });
