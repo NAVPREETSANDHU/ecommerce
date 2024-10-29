@@ -35,6 +35,7 @@ import UserEditScreen from "./screens/admin/UserEditScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import TermsAndConditions from "./screens/TermsAndConditions";
+import LoyaltyScreen from "./screens/LoyaltyScreen";
 import NotFoundPage from "./screens/NotFoundPage";
 
 import store from "./store"; // redux store
@@ -65,6 +66,7 @@ const router = createBrowserRouter(
         <Route path="/placeorder" element={<PlaceOrderScreen />} />
         <Route path="/order/:id" element={<OrderScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/loyalty" element={<LoyaltyScreen />} />
       </Route>
       {/* Admin users */}
       <Route path="" element={<AdminRoute />}>

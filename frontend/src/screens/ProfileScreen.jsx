@@ -22,7 +22,7 @@ const ProfileScreen = () => {
   const { userInfo } = useSelector((state) => state.auth); //get data from redux store
 
   const { data: orders, isLoading, error } = useGetMyOrdersQuery(); //hooks to get order history from api
-
+ 
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
     useProfileMutation(); // hooks to update profile
 
@@ -112,11 +112,15 @@ const ProfileScreen = () => {
             {error?.data?.message || error.error}
           </Message>
         ) : (
+          <>
+          {console.log(orders)}
+          
           <Table striped hover responsive className="table-sm">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>DATE</th>
+                <th>QUANTITY</th>
                 <th>TOTAL</th>
                 <th>PAID</th>
                 <th>DELIVERED</th>
@@ -128,6 +132,7 @@ const ProfileScreen = () => {
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.orderItems.reduce((totalQty, item) => totalQty + item.qty, 0)}</td>
                   <td>{order.totalPrice}</td>
                   <td>
                     {order.isPaid ? (
@@ -157,6 +162,7 @@ const ProfileScreen = () => {
               ))}
             </tbody>
           </Table>
+          </>
         )}
       </Col>
     </Row>

@@ -40,3 +40,4 @@ const App = () => {
 };
 
 export default App;
+//Create a customer loyalty program where if a customer purchase 6 items over a 2-month period they will get a item for free equal to the cost of the cheapest item they have purchased. The loyalty program will be reset for each customer as soon as they used it to receive the free item.

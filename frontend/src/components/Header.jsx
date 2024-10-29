@@ -57,6 +57,9 @@ const Header = () => {
                     <NavDropdown.Item as={Link} to="/profile">
                       Profile
                     </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/loyalty">
+                      Loyalty
+                    </NavDropdown.Item>
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout
                     </NavDropdown.Item>

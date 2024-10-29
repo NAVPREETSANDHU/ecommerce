@@ -77,6 +77,10 @@ const orderSchema = mongoose.Schema(
     deliveredAt: {
       type: Date,
     },
+    usedForLoyalty: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true,
