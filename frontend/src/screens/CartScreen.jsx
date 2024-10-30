@@ -13,25 +13,26 @@ import { FaTrash } from "react-icons/fa";
 import Message from "../components/Message";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 
-//Cart page
 const CartScreen = () => {
-  const navigate = useNavigate(); // hooks for navigation
-  const dispatch = useDispatch(); // hooks to dispatch actions
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart); // hooks to get data of global store
+  const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  //Function to add items to cart
   const addToCartHandler = (product, qty) => {
-    dispatch(addToCart({ ...product, qty }));
+    if (product && product._id) {
+      dispatch(addToCart({ ...product, qty })); // Check if product has an _id
+    } else {
+      console.error("Invalid product:", product);
+    }
   };
+  
 
-  //Function to remove items from cart
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
 
-  //function to navigate to login screen if user not logged in otherwise it takes to shipping page
   const checkoutHandler = () => {
     navigate("/login?redirect=/shipping");
   };

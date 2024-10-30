@@ -10,28 +10,27 @@ import { useProfileMutation } from "../slices/usersApiSlice";
 import { useGetMyOrdersQuery } from "../slices/ordersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { Link } from "react-router-dom";
+import LoyaltyStatus from '../components/loyaltystatus'; 
 
-//User/admin profile screen
 const ProfileScreen = () => {
-  const dispatch = useDispatch();
-  const [name, setName] = useState(""); //set name state
-  const [email, setEmail] = useState(""); // set email state
-  const [password, setPassword] = useState(""); //set password state
-  const [confirmPassword, setConfirmPassword] = useState(""); //set confirm password state
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { userInfo } = useSelector((state) => state.auth); //get data from redux store
+  const { userInfo } = useSelector((state) => state.auth);
 
-  const { data: orders, isLoading, error } = useGetMyOrdersQuery(); //hooks to get order history from api
+  const { data: orders, isLoading, error } = useGetMyOrdersQuery();
 
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
-    useProfileMutation(); // hooks to update profile
+    useProfileMutation();
 
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
   }, [userInfo.email, userInfo.name]);
 
-  //Submit handler of update profile form
+  const dispatch = useDispatch();
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -39,6 +38,9 @@ const ProfileScreen = () => {
     } else {
       try {
         const res = await updateProfile({
+          // NOTE: here we don't need the _id in the request payload as this is
+          // not used in our controller.
+          // _id: userInfo._id,
           name,
           email,
           password,
@@ -158,9 +160,11 @@ const ProfileScreen = () => {
             </tbody>
           </Table>
         )}
+        <LoyaltyStatus userId={userInfo._id} />
       </Col>
     </Row>
   );
 };
 
 export default ProfileScreen;
+
